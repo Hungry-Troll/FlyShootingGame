@@ -4,13 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - leftWall
-  - rightWall
-  - topWall
-  - bottomWall
   - enemy
   - bullet
   - enemyBullet
+  - BlockCollider
+  - ItemDropEnemy
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,12 @@ public class EnemyController : MonoBehaviour
     Animator animator;
     bool onDead;
     float time;
+    //이동관련
+    float moveSpeed;
+    Rigidbody2D rg2D;
+    //아이템
+    public GameObject[] item;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +24,11 @@ public class EnemyController : MonoBehaviour
         onDead = false;
         time = 0.0f;
         player = GameObject.FindGameObjectWithTag("Player");
+        // 이동관련
+        rg2D = GetComponent<Rigidbody2D>();
+        moveSpeed = Random.Range(5.0f, 7.0f);
+        fireDelay = 2.5f;
+        Move();
     }
     public void FireBullet()
     {
@@ -41,8 +52,22 @@ public class EnemyController : MonoBehaviour
         if(time > 0.6f)
         {
             Destroy(gameObject);
+            if(gameObject.CompareTag("ItemDropEnemy"))
+            {
+                int temp = Random.Range(0, 2);
+                Instantiate(item[temp], transform.position, Quaternion.identity);
+            }
         }
         FireBullet();
+    }
+
+    private void Move()
+    {
+        if (player == null)
+            return;
+        Vector3 distance = player.transform.position - transform.position;
+        Vector3 dir = distance.normalized;
+        rg2D.velocity = dir * moveSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,11 +77,21 @@ public class EnemyController : MonoBehaviour
             animator.SetInteger("State", 1);
             OnDead();
         }
+        if (collision.CompareTag("BlockCollider"))
+        {
+            OnDisapper();
+        }
     }
+
     private void OnDead()
     {
         onDead = true;
         // 스코어 증가 코드 작성
+    }
+
+    private void OnDisapper()
+    {
+        Destroy(gameObject);
     }
 }
 

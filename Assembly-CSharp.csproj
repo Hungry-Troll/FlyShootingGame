@@ -58,12 +58,14 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\New Folder\BulletController3.cs" />
     <Compile Include="Assets\Scripts\New Folder\BulletController2.cs" />
+    <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\New Folder\EnemySpwanController1.cs" />
     <Compile Include="Assets\Scripts\New Folder\Player.cs" />
     <Compile Include="Assets\Scripts\EnemyBulletController.cs" />
     <Compile Include="Assets\Scripts\New Folder\EnemyController3.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\EnemySpwanController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
