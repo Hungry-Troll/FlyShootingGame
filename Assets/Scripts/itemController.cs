@@ -5,16 +5,18 @@ using UnityEngine;
 public class itemController : MonoBehaviour
 {
     protected GameObject player;
+    protected float speed;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        speed = 10.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector2.down * 0.05f);
+        transform.Translate(Vector2.down * speed * Time.deltaTime);
     }
 
     protected void OnTriggerEnter2D(Collider2D collision)
