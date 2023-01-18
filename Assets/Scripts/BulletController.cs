@@ -39,5 +39,9 @@ public class BulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (collision.CompareTag("ItemDropEnemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
