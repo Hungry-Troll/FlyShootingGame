@@ -928,8 +928,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   limitMax: {x: 10, y: 18, z: 0}
   limitMin: {x: -10, y: -18, z: 0}
-  prefabBullet: {fileID: 2435330338025885697, guid: c70bbd4f3ee5f6840a3d8a6c2717ed3d, type: 3}
+  prefabBullet:
+  - {fileID: 2435330338025885697, guid: c70bbd4f3ee5f6840a3d8a6c2717ed3d, type: 3}
+  - {fileID: 2435330338025885697, guid: 12332de538db6e6478747943cbbc0f8f, type: 3}
+  - {fileID: 2435330338025885697, guid: 03586605daeb07d4f8f22e8746cf07c9, type: 3}
   speed: 0
+  Damage: 0
+  Boom: 0
 --- !u!70 &1337607318
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    
     float x;
     float y;
     public Vector3 limitMax;
     public Vector3 limitMin;
     Vector3 temp;
-    public GameObject prefabBullet;
+    public GameObject[] prefabBullet;
     float time;
     public float speed;
 
     float fireDelay;
     Animator animator;
     bool onDead;
+    // æ∆¿Ã≈€
+    public int Damage;
+    public int Boom;
 
     private void Start()
     {
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         onDead = false;
+
+        Damage = 1;
+        Boom = 0;
     } 
 
     // Update is called once per frame
@@ -75,7 +80,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Fire " + fireDelay);
         if (fireDelay > 0.3f)
         {
-            Instantiate(prefabBullet, transform.position, Quaternion.identity);
+            Instantiate(prefabBullet[Damage - 1], transform.position, Quaternion.identity);
             fireDelay -= 0.3f;
         }
     }
