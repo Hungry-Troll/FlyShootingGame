@@ -11,6 +11,7 @@ public class BoomController : itemController
         if(playerController.Boom < 4)
         {
             playerController.Boom++;
+            UIManager.instance.BoomCheck(playerController.Boom);
         }
     }
 }

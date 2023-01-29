@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region
     float x;
     float y;
     public Vector3 limitMax;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // ¾ÆÀÌÅÛ
     public int Damage;
     public int Boom;
-
+    #endregion
     private void Start()
     {
         time = 0;
@@ -32,15 +33,14 @@ public class PlayerController : MonoBehaviour
         Damage = 1;
         Boom = 0;
     } 
-
     // Update is called once per frame
     private void Update()
     {
         Move();
         FireBullet();
         OnDeadCheck();
+        FireBoom();
     }
-
     public void Move()
     {
         x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
@@ -73,15 +73,26 @@ public class PlayerController : MonoBehaviour
             transform.position = temp;
         }
     }
-
     public void FireBullet()
     {
         fireDelay += Time.deltaTime;
-        Debug.Log("Fire " + fireDelay);
+        //Debug.Log("Fire " + fireDelay);
         if (fireDelay > 0.3f)
         {
             Instantiate(prefabBullet[Damage - 1], transform.position, Quaternion.identity);
             fireDelay -= 0.3f;
+        }
+    }
+    public void FireBoom()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Space!!");
+            if(Boom >= 1)
+            {
+                Boom--;
+                UIManager.instance.BoomCheck(Boom);
+            }
         }
     }
 
