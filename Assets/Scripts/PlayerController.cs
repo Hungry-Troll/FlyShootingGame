@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
             fireDelay -= 0.3f;
         }
     }
+
     public void FireBoom()
     {
         if(Input.GetKeyDown(KeyCode.Space))
