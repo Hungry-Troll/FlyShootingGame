@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    #region
     public GameObject enemyBullet;
     GameObject player;
     PlayerController playerController;
@@ -21,7 +22,7 @@ public class EnemyController : MonoBehaviour
     int hp;
     //태그 임시 저장
     public string tagName;
-    // Start is called before the first frame update
+    #endregion
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -52,7 +53,6 @@ public class EnemyController : MonoBehaviour
             fireDelay -= 3f;
         }
     }
-    // Update is called once per frame
     void Update()
     {
         if (onDead)
@@ -70,7 +70,6 @@ public class EnemyController : MonoBehaviour
         }
         FireBullet();
     }
-
     private void Move()
     {
         if (player == null)
@@ -79,21 +78,24 @@ public class EnemyController : MonoBehaviour
         Vector3 dir = distance.normalized;
         rg2D.velocity = dir * moveSpeed;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("bullet"))
         {
             hp = hp - playerController.Damage;
-            if(hp <= 0)
-            {
-                animator.SetInteger("State", 1);
-                OnDead();
-            }
+        }
+        if (collision.CompareTag("BoomMissile"))
+        {
+            hp = hp - playerController.BoomDamage;
         }
         if (collision.CompareTag("BlockCollider"))
         {
             OnDisapper();
+        }
+        if (hp <= 0)
+        {
+            animator.SetInteger("State", 1);
+            OnDead();
         }
     }
 

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyBulletController : MonoBehaviour
 {
+    #region
     public float moveSpeed;
     public float rotateSpeed;
     float time;
     Rigidbody2D rg2D;
     GameObject player;
-
-    // Start is called before the first frame update
+    #endregion
     void Start()
     {
         moveSpeed = 10.0f;
@@ -22,7 +22,6 @@ public class EnemyBulletController : MonoBehaviour
         FireBullet();
     }
 
-    // Update is called once per frame
     void Update()
     {
         RotateBullet();
@@ -53,6 +52,10 @@ public class EnemyBulletController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.CompareTag("BoomMissile"))
         {
             Destroy(gameObject);
         }

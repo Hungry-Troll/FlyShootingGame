@@ -6,25 +6,23 @@ public class BoomMissileController : MonoBehaviour
 {
     public float speed;
     float time;
-    // Start is called before the first frame update
     private void Start()
     {
-        speed = 10.0f;
+        speed = 35.0f;
         time = 0;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        FireBoom();
-        DestroyBullet();
+        MoveBoom();
+        DestroyBoom();
     }
 
-    private void FireBoom()
+    private void MoveBoom()
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
-    private void DestroyBullet()
+    private void DestroyBoom()
     {
         time += Time.deltaTime;
         if (time > 5.0f)

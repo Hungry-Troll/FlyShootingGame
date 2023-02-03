@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     // ¾ÆÀÌÅÛ
     public int Damage;
     public int Boom;
+    // ÆøÅº
+    public GameObject BoomMissile;
+    public int BoomPosY;
+    public int BoomDamage;
     #endregion
     private void Start()
     {
@@ -32,6 +36,9 @@ public class PlayerController : MonoBehaviour
 
         Damage = 1;
         Boom = 0;
+
+        BoomPosY = -30;
+        BoomDamage = 30;
     } 
     // Update is called once per frame
     private void Update()
@@ -88,9 +95,11 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Space!!");
-            if(Boom >= 1)
+            //Debug.Log("Space!!");
+            if (Boom >= 1)
             {
+                GameObject go = Instantiate(BoomMissile, transform.position, Quaternion.identity);
+                go.transform.position = new Vector3(transform.position.x, BoomPosY, transform.position.z);
                 Boom--;
                 UIManager.instance.BoomCheck(Boom);
             }
