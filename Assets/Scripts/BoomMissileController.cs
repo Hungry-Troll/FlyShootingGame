@@ -6,13 +6,13 @@ public class BoomMissileController : MonoBehaviour
 {
     public float speed;
     float time;
-    private void Start()
+    void Start()
     {
         speed = 35.0f;
         time = 0;
     }
 
-    private void Update()
+    void Update()
     {
         MoveBoom();
         DestroyBoom();
@@ -25,7 +25,7 @@ public class BoomMissileController : MonoBehaviour
     private void DestroyBoom()
     {
         time += Time.deltaTime;
-        if (time > 5.0f)
+        if (time > 3.0f)
         {
             Destroy(gameObject);
         }

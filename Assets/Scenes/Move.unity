@@ -1195,7 +1195,7 @@ MonoBehaviour:
   speed: 0
   Damage: 0
   Boom: 0
-  BoomMissile: {fileID: 3106610080453044065, guid: c2073cc2ffffe224a97e102c9761b884, type: 3}
+  BoomMissile: {fileID: 1878804802396348410, guid: c2073cc2ffffe224a97e102c9761b884, type: 3}
   BoomPosY: 0
   BoomDamage: 0
 --- !u!70 &1337607318
