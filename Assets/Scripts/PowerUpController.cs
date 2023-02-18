@@ -12,5 +12,9 @@ public class PowerUpController : itemController
         {
             playerController.Damage++;
         }
+        if(playerController.Damage >= 3)
+        {
+            UIManager.instance.ScoreAdd(base.score);
+        }
     }
 }

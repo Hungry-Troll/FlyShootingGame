@@ -267,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1515455585
 Animator:
   serializedVersion: 3
@@ -346,7 +346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515455584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.63, y: -6.29, z: 0}
+  m_LocalPosition: {x: 5.2, y: -15.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -370,6 +370,6 @@ MonoBehaviour:
   speed: 0
   Damage: 0
   Boom: 0
-  BoomMissile: {fileID: 0}
+  BoomMissile: {fileID: 1878804802396348410, guid: c2073cc2ffffe224a97e102c9761b884, type: 3}
   BoomPosY: 0
   BoomDamage: 0

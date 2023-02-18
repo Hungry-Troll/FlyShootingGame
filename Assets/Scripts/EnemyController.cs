@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour
     int hp;
     //태그 임시 저장
     public string tagName;
+    //점수
+    int score;
     #endregion
     void Start()
     {
@@ -39,6 +41,7 @@ public class EnemyController : MonoBehaviour
         else
             hp = 1;
         tagName = gameObject.tag;
+        score = 10;
         Move();
     }
     public void FireBullet()
@@ -102,8 +105,12 @@ public class EnemyController : MonoBehaviour
     private void OnDead()
     {
         onDead = true;
+        if(gameObject.tag !="Untagged")
+        {
+            // 스코어 증가 코드 작성
+            UIManager.instance.ScoreAdd(score);
+        }
         gameObject.tag = "Untagged";
-        // 스코어 증가 코드 작성
     }
 
     private void OnDisapper()

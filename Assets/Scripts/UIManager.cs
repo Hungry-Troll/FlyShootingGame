@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     public GameObject[] ui_Booms;
+    //점수
+    public Text scoreText;
+    public int score;
 
     void Awake()
     {
@@ -17,6 +21,12 @@ public class UIManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
+
+    void Start()
+    {
+        score = 0;    
+    }
+
     //폭탄 아이템을 체크하는 함수
     public void BoomCheck(int boomCount)
     {
@@ -27,5 +37,11 @@ public class UIManager : MonoBehaviour
             else
                 ui_Booms[i].SetActive(false);
         }
+    }
+    // 스코어 증가 함수
+    public void ScoreAdd(int _socre)
+    {
+        score += _socre;
+        scoreText.text = score.ToString();
     }
 }
