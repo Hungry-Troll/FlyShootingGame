@@ -10,7 +10,7 @@ public class itemController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+       //player = GameObject.FindGameObjectWithTag("Player");
         speed = 10.0f;
         score = 100;
     }
@@ -34,5 +34,9 @@ public class itemController : MonoBehaviour
         }
     }
 
-    protected virtual void ItemGain() { }
+    protected virtual void ItemGain() 
+    {
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+    }
 }

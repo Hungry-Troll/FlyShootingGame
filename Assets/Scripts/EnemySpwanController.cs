@@ -19,7 +19,7 @@ public class EnemySpwanController : MonoBehaviour
     // 웨이브 >> 추후 사용
     int wave;
     // 플레이어 변수
-    GameObject player;
+    //GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,7 @@ public class EnemySpwanController : MonoBehaviour
         enemyCount = 5;
         randomCount = new int[enemyCount];
         wave = 0;
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -60,7 +60,9 @@ public class EnemySpwanController : MonoBehaviour
 
     void EnemyCreate()
     {
-        if (player == null)
+        //if (player == null)
+        //    return;
+        if (GameManager.instance.lifeCount < 0)
             return;
         for (int i = 0; i < enemyCount; i++)
         {

@@ -7,6 +7,8 @@ public class BoomController : itemController
     PlayerController playerController;
     protected override void ItemGain()
     {
+        base.ItemGain();
+
         playerController = base.player.GetComponent<PlayerController>();
         if(playerController.Boom < 3)
         {

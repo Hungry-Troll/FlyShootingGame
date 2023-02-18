@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject BoomMissile;
     public int BoomPosY;
     public int BoomDamage;
+
     #endregion
     private void Start()
     {
@@ -133,6 +134,9 @@ public class PlayerController : MonoBehaviour
         if (time > 0.6f)
         {
             Destroy(gameObject);
+            GameManager.instance.PlayerLifeRemove();
+            GameManager.instance.CreatePlayer();
+            UIManager.instance.LifeCheck(GameManager.instance.lifeCount);
         }
     }
 }

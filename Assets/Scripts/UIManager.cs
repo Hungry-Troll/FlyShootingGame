@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     //점수
     public Text scoreText;
     public int score;
+    //라이프
+    public GameObject[] ui_Life;
 
     void Awake()
     {
@@ -43,5 +45,16 @@ public class UIManager : MonoBehaviour
     {
         score += _socre;
         scoreText.text = score.ToString();
+    }
+    //라이프 체크 함수
+    public void LifeCheck(int lifeCount)
+    {
+        for (int i = 0; i < ui_Life.Length; i++)
+        {
+            if (i + 1 <= lifeCount)
+                ui_Life[i].SetActive(true);
+            else
+                ui_Life[i].SetActive(false);
+        }
     }
 }
