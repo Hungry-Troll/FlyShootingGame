@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public Vector3 playerPos;
     public int lifeCount;
-    
+
     public static GameManager instance;
+
     void Awake()
     {
         if (instance == null)
@@ -29,11 +30,10 @@ public class GameManager : MonoBehaviour
         UIManager.instance.LifeCheck(lifeCount);
         CreatePlayer();
     }
-
     // 플레이어 생성
     public void CreatePlayer()
     {
-        if(lifeCount >= 0)
+        if (lifeCount >= 0)
         {
             GameObject player = Instantiate(playerPrefab);
             float x = Random.Range(-9.0f, 9.0f);
@@ -42,9 +42,8 @@ public class GameManager : MonoBehaviour
             player.transform.position = playerPos;
             playerController = player.GetComponent<PlayerController>();
             UIManager.instance.BoomCheck(playerController.Boom);
-        }
+        }    
     }
-
     // 플레이어 라이프 감소
     public void PlayerLifeRemove()
     {

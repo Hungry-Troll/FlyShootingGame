@@ -19,7 +19,7 @@ public class EnemySpwanController : MonoBehaviour
     // 웨이브 >> 추후 사용
     int wave;
     // 플레이어 변수
-    //GameObject player;
+    // GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,8 +62,10 @@ public class EnemySpwanController : MonoBehaviour
     {
         //if (player == null)
         //    return;
+
         if (GameManager.instance.lifeCount < 0)
             return;
+
         for (int i = 0; i < enemyCount; i++)
         {
             // 랜덤 적 선택
