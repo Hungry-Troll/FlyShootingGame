@@ -5,23 +5,29 @@ using UnityEngine;
 public class BackgroundImageController : MonoBehaviour
 {
     float speed;
-    float hight;
-    BoxCollider2D boxCollider;
-    void Start()
+    float height;
+    public GameObject other;
+
+    void Awake()
     {
-        speed = 3;
-        boxCollider = GetComponent<BoxCollider2D>();
-        hight = boxCollider.size.y;
+        speed = 30;
+        height = 40.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        if(transform.position.y * 2 <= -hight)
+        if (gameObject.transform.position.y <= -height)
         {
-            RePosition();
+            float gap = gameObject.transform.position.y + height;
+            float PosY1 = gameObject.transform.position.y;
+            float PosY2 = other.gameObject.transform.position.y;
+            Debug.LogError(PosY1);
+            Debug.LogError(PosY2);
+            gameObject.transform.position = new Vector3(0,Mathf.Abs(PosY1) + Mathf.Abs(PosY2) + gap, 0);
         }
+
     }
 
     void Move()
@@ -29,9 +35,5 @@ public class BackgroundImageController : MonoBehaviour
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 
-    void RePosition()
-    {
-        Vector3 offset = new Vector3(0, hight * 2.5f, 0);
-        transform.position = transform.position + offset;
-    }
+
 }
