@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test2 : MonoBehaviour
+public class BackGroundImage : MonoBehaviour
 {
     float height;
     float speed;
-    public BoxCollider2D collider2D;
+    BoxCollider2D collider2D;
+
     void Start()
     {
         collider2D = GetComponent<BoxCollider2D>();
@@ -24,14 +25,13 @@ public class Test2 : MonoBehaviour
         }
     }
 
-    void Reposition()
-    {
-        Vector2 offset = new Vector2(0, height * 2f);
-        transform.position = (Vector2)transform.position + offset;
-    }
-
     void Move()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
+    }
+    void Reposition()
+    {
+        Vector3 offset = new Vector3(0, height * 2, 0);
+        transform.position = transform.position + offset;
     }
 }
