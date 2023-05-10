@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     public string tagName;
     //점수
     int score;
+    //사운드
+    public AudioSource sound;
     #endregion
     void Start()
     {
@@ -109,6 +111,7 @@ public class EnemyController : MonoBehaviour
         {
             // 스코어 증가 코드 작성
             UIManager.instance.ScoreAdd(score);
+            SoundManager.instance.enemyDeadSound.Play();
         }
         gameObject.tag = "Untagged";
     }

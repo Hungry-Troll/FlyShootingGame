@@ -20,6 +20,9 @@ public class EnemySpwanController : MonoBehaviour
     int wave;
     // 플레이어 변수
     // GameObject player;
+    // 보스 관련
+    bool bossCreate;
+    public GameObject bossGameObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class EnemySpwanController : MonoBehaviour
         enemyCount = 5;
         randomCount = new int[enemyCount];
         wave = 0;
+        bossCreate = false;
         //player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -35,6 +39,9 @@ public class EnemySpwanController : MonoBehaviour
     void Update()
     {
         Timer();
+        // 보스 생성
+        if (wave >= 5 && bossCreate == false)
+            BossCreate();
     }
     // 시간을 체크하는 함수
     void Timer()
@@ -79,5 +86,21 @@ public class EnemySpwanController : MonoBehaviour
             float result = Random.Range(tmpX - 2.0f, tmpX + 2.0f);
             tmp.transform.position = new Vector3(result, tmp.transform.position.y, transform.position.z);
         }
+    }
+
+    void BossCreate()
+    {
+        bossCreate = true;
+        GameObject tmp = GameObject.Instantiate(bossGameObject);
+        int randomCount = Random.Range(0, 9);
+        tmp.transform.position = enemySpwns[randomCount].position;
+        BossController bossController = tmp.GetComponent<BossController>();
+
+        UIManager.instance.isBossSpwan = true;
+        UIManager.instance.MaxHp1 = bossController.hp1;
+        UIManager.instance.MaxHp2 = bossController.hp2;
+        UIManager.instance.bossController = bossController;
+        // 게임매니저에 보스 컨트롤러 넘겨줌
+        GameManager.instance.bossController = bossController;
     }
 }

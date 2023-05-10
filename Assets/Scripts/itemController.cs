@@ -7,6 +7,7 @@ public class itemController : MonoBehaviour
     protected GameObject player;
     protected float speed;
     protected int score;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +26,8 @@ public class itemController : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Destroy(gameObject);
             ItemGain();
+            Destroy(gameObject);
         }
         if(collision.CompareTag("BlockCollider"))
         {
@@ -37,6 +38,9 @@ public class itemController : MonoBehaviour
     protected virtual void ItemGain() 
     {
         if (player == null)
+        {
             player = GameObject.FindGameObjectWithTag("Player");
+        }
+        SoundManager.instance.itemGainSound.Play();
     }
 }

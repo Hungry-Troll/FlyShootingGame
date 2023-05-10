@@ -91,7 +91,6 @@ public class PlayerController : MonoBehaviour
             fireDelay -= 0.3f;
         }
     }
-
     public void FireBoom()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -106,7 +105,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -129,6 +127,10 @@ public class PlayerController : MonoBehaviour
     {
         if (onDead)
         {
+            if(SoundManager.instance.playerDeadSound.isPlaying == false)
+            {
+                SoundManager.instance.playerDeadSound.Play();
+            }
             time += Time.deltaTime;
         }
         if (time > 0.6f)
@@ -137,6 +139,7 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.PlayerLifeRemove();
             GameManager.instance.CreatePlayer();
             UIManager.instance.LifeCheck(GameManager.instance.lifeCount);
+            GameManager.instance.GameOverCheck();
         }
     }
 }

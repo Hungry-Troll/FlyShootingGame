@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public int lifeCount;
 
     public static GameManager instance;
+    public BossController bossController;
+
 
     void Awake()
     {
@@ -48,5 +50,13 @@ public class GameManager : MonoBehaviour
     public void PlayerLifeRemove()
     {
         lifeCount--;
+    }
+    // 플레이어 라이프에 따른 게임오버 확인
+    public void GameOverCheck()
+    {
+        if(lifeCount < 0)
+        {
+            UIManager.instance.GameOver();
+        }
     }
 }
