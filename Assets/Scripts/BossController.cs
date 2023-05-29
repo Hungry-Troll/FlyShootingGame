@@ -1,10 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    #region
     //
-    GameObject player;
-    PlayerController playerController;
+    public GameObject player;
+    public PlayerController playerController;
     // 체력바
     public float hp1; //초록색
     public float hp2; //빨간색
@@ -30,15 +32,17 @@ public class BossController : MonoBehaviour
     public GameObject bossBullet;
     //총알 딜레이
     float fireDelay;
-    //애니메이션 딜레이
-    float animDelay;
-
+    #endregion
     //애니메이션 상태 확인용
-    // 0 : 대기, 이동 
-    // 1 : L공격 
+    // -1 : 대기, 이동 반복
+    // 0 : 대기, 이동
+    // 1 : L공격
     // 2 : R공격
     // 3 : Die
-    int animNumber; 
+    int animNumber;
+    // 피격관련
+    public SpriteRenderer spriteRenderer;
+    Color currentColor;
 
     // Start is called before the first frame update
     void Awake()
@@ -48,10 +52,7 @@ public class BossController : MonoBehaviour
     }
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = player.GetComponent<PlayerController>();
         spwanMovePos = GameObject.Find("BossSpwan").GetComponent<Transform>();
-
         animator = GetComponent<Animator>();
 
         onDead = false;
@@ -61,7 +62,9 @@ public class BossController : MonoBehaviour
 
         speed = 10;
 
-        animNumber = 0; // 대기
+        animNumber = 0;
+
+        currentColor = spriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -79,71 +82,102 @@ public class BossController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if( player == null && GameManager.instance.lifeCount >= 0)
+        {
+            PlayerFind();
+        }
+        FireBullet();
+        AnimationSystem();
+    }
 
+    public void PlayerFind()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<PlayerController>();
+    }
+
+    //애니메이션 상태 확인용
+    // -1 : 대기, 이동 반복
+    // 0 : 대기, 이동
+    // 1 : L공격
+    // 2 : R공격
+    // 3 : Die
+    void FireBullet()
+    {
         // 총알 발사 애니메이션
         if (hp1 > 0 && isSpwan == false)
         {
             fireDelay += Time.deltaTime;
-            // 공격 딜레이가 2.0초 지나고 L공격 상태가 아니면
+            // 공격 딜레이가 1.0초 지나고 L공격 상태가 아니면
             if (fireDelay > 1.0f && animNumber != 1)
             {
-                //L공격
+                // L공격
                 animNumber = 1;
-            }
-            if (fireDelay > 1.5f)
-            {
-                // 대기
-                animNumber = 0;
                 fireDelay -= fireDelay;
             }
         }
         if (hp1 <= 0)
         {
             fireDelay += Time.deltaTime;
-            // 공격 딜레이가 1.0초 지나고 R공격 상태가 아니면
+            // 공격 딜레이가 1.0초 지나고 R 공격 상태가 아니면
             if (fireDelay > 1.0f && animNumber != 2)
             {
-                //L공격
+                // R공격
                 animNumber = 2;
-            }
-            if (fireDelay > 1.5f)
-            {
-                // 대기
-                animNumber = 0;
                 fireDelay -= fireDelay;
             }
         }
-        AnimationSystem();
     }
 
-    // 애니메이션만 따로 관리하자
+    // 애니메이션은 따로 관리
     void AnimationSystem()
     {
         // 대기 이동
         if (animNumber == 0)
         {
-            animator.SetTrigger("Idle");
+            StartCoroutine(Co_Idle());
         }
-        // L공격
         if (animNumber == 1)
         {
-            animator.SetTrigger("LAttack");
+            StartCoroutine(Co_LAttack());
         }
-        // R공격
         if (animNumber == 2)
         {
-            animator.SetTrigger("RAttack");
-        }
-        // Die
-        if (animNumber == 3)
-        {
-            animator.SetTrigger("Die");
+            StartCoroutine(Co_RAttack());
         }
     }
+    //애니메이션 상태 확인용
+    // -1 : 대기, 이동 반복
+    // 0 : 대기, 이동
+    // 1 : L공격
+    // 2 : R공격
+    // 3 : Die
 
-    public void PlayerFind()
+    IEnumerator Co_Idle()
     {
+        animNumber = -1;
+        animator.SetTrigger("Idle");
+        yield return new WaitForSeconds(0.6f);
+    }
 
+    IEnumerator Co_LAttack()
+    {
+        animNumber = -1;
+        animator.SetTrigger("LAttack");
+        yield return new WaitForSeconds(0.6f);
+        animNumber = 0;
+    }
+
+    IEnumerator Co_RAttack()
+    {
+        animNumber = -1;
+        animator.SetTrigger("RAttack");
+        yield return new WaitForSeconds(0.6f);
+        animator.SetTrigger("RAttack");
+        yield return new WaitForSeconds(0.6f);
+        animator.SetTrigger("RAttack");
+        yield return new WaitForSeconds(0.6f);
+        animNumber = 0;
     }
 
     void LAttack()
@@ -197,6 +231,7 @@ public class BossController : MonoBehaviour
             {
                 hp2 = hp2 - playerController.Damage;
             }
+            StartCoroutine(OnDamagedEffect());
         }
         if (collision.CompareTag("BoomMissile"))
         {
@@ -208,6 +243,7 @@ public class BossController : MonoBehaviour
             {
                 hp2 = hp2 - playerController.BoomDamage;
             }
+            StartCoroutine(OnDamagedEffect());
         }
         if (hp2 <= 0)
         {
@@ -216,4 +252,10 @@ public class BossController : MonoBehaviour
         }
     }
 
+    IEnumerator OnDamagedEffect()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = currentColor;
+    }
 }
